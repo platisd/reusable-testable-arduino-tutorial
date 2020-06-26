@@ -3,7 +3,7 @@ name: Arduino CI
 on: [push]
 
 jobs:
-  build-sketch:
+  build-sketches:
     runs-on: ubuntu-latest
     steps:
       - name: Clone Repo
