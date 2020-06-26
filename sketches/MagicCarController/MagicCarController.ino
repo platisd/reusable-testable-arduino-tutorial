@@ -3,8 +3,9 @@
 #include <WebServer.h>
 #include <WiFi.h>
 
-const auto ssid     = "yourSSID";
-const auto password = "yourWifiPassword";
+const auto ssid      = "yourSSID";
+const auto password  = "yourWifiPassword";
+const auto lightsPin = 15;
 
 WebServer server(80);
 
@@ -42,6 +43,8 @@ void setup(void)
         Serial.println("MDNS responder started");
     }
 
+    pinMode(lightsPin, OUTPUT);
+
     server.on("/drive", []() {
         const auto arguments = server.args();
 
@@ -50,7 +53,9 @@ void setup(void)
             const auto command = server.argName(i);
             if (command == "speed")
             {
-                car.setSpeed(server.arg(i).toInt());
+                const auto userSpeed = server.arg(i).toInt();
+                car.setSpeed(userSpeed);
+                digitalWrite(lightsPin, userSpeed == 0 ? HIGH : LOW);
             }
             else if (command == "angle")
             {

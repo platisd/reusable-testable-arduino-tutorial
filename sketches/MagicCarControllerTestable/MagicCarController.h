@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Car.h"
+#include "PinController.h"
 #include "RestServer.h"
 
 namespace magic_car
@@ -8,7 +9,9 @@ namespace magic_car
 class MagicCarController
 {
 public:
-    MagicCarController(Car& car, RestServer& restServer);
+    MagicCarController(Car& car,
+                       RestServer& restServer,
+                       PinController& pinController);
 
     void registerDriveEndpoint();
     void registerGyroscopeEndpoint();
@@ -19,5 +22,6 @@ public:
 private:
     Car& mCar;
     RestServer& mRestServer;
+    PinController& mPinController;
 };
 } // namespace magic_car

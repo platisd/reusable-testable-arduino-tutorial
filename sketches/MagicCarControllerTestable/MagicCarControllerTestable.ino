@@ -5,6 +5,7 @@
 #include "Esp32RestServer.h"
 #include "MagicCar.h"
 #include "MagicCarController.h"
+#include "ArduinoPinController.h"
 
 const auto ssid     = "yourSSID";
 const auto password = "yourWifiPassword";
@@ -22,8 +23,10 @@ HeadingCar car(control, gyroscope);
 
 magic_car::MagicCar magicCar{car};
 magic_car::Esp32RestServer esp32RestServer{server};
+magic_car::ArduinoPinController pinController;
 
-magic_car::MagicCarController magicCarController{magicCar, esp32RestServer};
+magic_car::MagicCarController magicCarController{
+    magicCar, esp32RestServer, pinController};
 
 void setup(void)
 {

@@ -8,6 +8,7 @@ namespace
 const auto kPlainText = "text/plain";
 const auto kSuccess   = 200;
 const auto kError     = 404;
+const auto kLightsPin = 15;
 
 bool areEqual(const std::vector<char>& v, const char* c)
 {
@@ -17,10 +18,14 @@ bool areEqual(const std::vector<char>& v, const char* c)
 
 namespace magic_car
 {
-MagicCarController::MagicCarController(Car& car, RestServer& restServer)
+MagicCarController::MagicCarController(Car& car,
+                                       RestServer& restServer,
+                                       PinController& pinController)
     : mCar{car}
     , mRestServer{restServer}
+    , mPinController{pinController}
 {
+    mPinController.setPinDirection(kLightsPin, PinDirection::kOutput);
 }
 
 void MagicCarController::registerDriveEndpoint()
@@ -33,7 +38,16 @@ void MagicCarController::registerDriveEndpoint()
             const auto command = mRestServer.argName(i);
             if (areEqual(command, "speed"))
             {
-                mCar.setSpeed(static_cast<float>(mRestServer.argToInt(i)));
+                const auto userSpeed = mRestServer.argToInt(i);
+                mCar.setSpeed(static_cast<float>(userSpeed));
+                if (userSpeed == 0)
+                {
+                    mPinController.setPin(kLightsPin);
+                }
+                else
+                {
+                    mPinController.clearPin(kLightsPin);
+                }
             }
             else if (areEqual(command, "angle"))
             {

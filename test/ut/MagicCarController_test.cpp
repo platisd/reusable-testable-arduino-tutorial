@@ -1,5 +1,6 @@
 #include "MagicCarController.h"
 #include "MockCar.hpp"
+#include "MockPinController.hpp"
 #include "MockRestServer.hpp"
 #include "gtest/gtest.h"
 
@@ -7,8 +8,9 @@ using namespace testing;
 
 namespace
 {
-const auto kSuccess = 200;
-const auto kError   = 404;
+const auto kSuccess   = 200;
+const auto kError     = 404;
+const auto kLightsPin = 15;
 const std::vector<char> kDummyName{'a', 'b', 'c', '\0'};
 const std::vector<char> kSpeed{'s', 'p', 'e', 'e', 'd', '\0'};
 const std::vector<char> kAngle{'a', 'n', 'g', 'l', 'e', '\0'};
@@ -20,7 +22,8 @@ struct MagicCarControllerTest : public Test
 {
     MockCar mCar;
     MockRestServer mRestServer;
-    MagicCarController mMagicCarController{mCar, mRestServer};
+    MockPinController mPinController;
+    MagicCarController mMagicCarController{mCar, mRestServer, mPinController};
 };
 
 struct DriveEndpointTest : public Test
@@ -35,9 +38,21 @@ struct DriveEndpointTest : public Test
 
     MockCar mCar;
     MockRestServer mRestServer;
-    MagicCarController mMagicCarController{mCar, mRestServer};
+    MockPinController mPinController;
+    MagicCarController mMagicCarController{mCar, mRestServer, mPinController};
     std::function<void()> mCallback;
 };
+
+TEST(MagicCarConstructorTest, constructor_WhenCalled_WillSetLightsPinDirection)
+{
+    MockCar car;
+    MockRestServer restServer;
+    MockPinController pinController;
+
+    EXPECT_CALL(pinController,
+                setPinDirection(kLightsPin, PinDirection::kOutput));
+    MagicCarController mMagicCarController{car, restServer, pinController};
+}
 
 TEST_F(MagicCarControllerTest,
        registerDriveEndpoint_WhenCalled_WillRegisterEndpoint)

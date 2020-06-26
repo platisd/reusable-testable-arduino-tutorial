@@ -1,33 +1,33 @@
 #include "Esp32RestServer.h"
 
-namespace
+namespace magic_car
 {
-MagicRestServer::MagicRestServer(WebServer& webServer)
+Esp32RestServer::Esp32RestServer(WebServer& webServer)
     : mWebServer{webServer}
 {
 }
 
-void MagicRestServer::begin()
+void Esp32RestServer::begin()
 {
     mWebServer.begin();
 }
 
-void MagicRestServer::on(const char* endpoint, std::function<void()> callback)
+void Esp32RestServer::on(const char* endpoint, std::function<void()> callback)
 {
     mWebServer.on(endpoint, callback);
 }
 
-void MagicRestServer::onNotFound(std::function<void()> callback)
+void Esp32RestServer::onNotFound(std::function<void()> callback)
 {
     mWebServer.onNotFound(callback);
 }
 
-int MagicRestServer::args()
+int Esp32RestServer::args()
 {
     return mWebServer.args();
 }
 
-std::vector<char> MagicRestServer::argName(int index)
+std::vector<char> Esp32RestServer::argName(int index)
 {
     const auto name = mWebServer.argName(index);
     std::vector<char> argumentName;
@@ -40,18 +40,18 @@ std::vector<char> MagicRestServer::argName(int index)
     return argumentName;
 }
 
-int MagicRestServer::argToInt(int index)
+int Esp32RestServer::argToInt(int index)
 {
     return mWebServer.arg(index).toInt();
 }
 
-void MagicRestServer::send(int errorCode, const char* type, const char* payload)
+void Esp32RestServer::send(int errorCode, const char* type, const char* payload)
 {
     mWebServer.send(errorCode, type, payload);
 }
 
-void MagicRestServer::handleClient()
+void Esp32RestServer::handleClient()
 {
     mWebServer.handleClient();
 }
-} // namespace
+} // namespace magic_car
