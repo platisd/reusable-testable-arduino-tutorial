@@ -52,7 +52,7 @@ set(mocks ${CMAKE_CURRENT_SOURCE_DIR}/mocks)
 
 # Calculator test
 add_executable(calculator_test
-        ${calculator_dir}/calculator.cpp
+        ${calculator_dir}/Calculator.cpp
         ${unit_tests}/calculator_test.cpp)
 target_include_directories(calculator_test PUBLIC
         ${calculator_dir}
