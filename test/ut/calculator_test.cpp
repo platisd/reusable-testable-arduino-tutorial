@@ -19,8 +19,7 @@ TEST(calculator_test, add_WhenMixedSignArguments_WillReturnCorrectSum)
 
 TEST(calculator_test, subtract_WhenPositiveArguments_WillReturnCorrectSum)
 {
-    const auto expectedResult = 48;
-    EXPECT_EQ(calculator::subtract(50, 2), expectedResult);
+    // TODO: Write this test
 }
 
 TEST(calculator_test, subtract_WhenNegativeArguments_WillReturnCorrectSum)
@@ -31,4 +30,19 @@ TEST(calculator_test, subtract_WhenNegativeArguments_WillReturnCorrectSum)
 TEST(calculator_test, subtract_WhenMixedSignArguments_WillReturnCorrectSum)
 {
     // TODO: Write this test
+}
+
+TEST(calculator_test, divide_WhenExactDivision_WillReturnCorrectResult)
+{
+    // TODO: Write this test
+}
+
+TEST(calculator_test, divide_WhenNotExactDivision_WillReturnCorrectResult)
+{
+    // TODO: Write this test
+}
+
+TEST(calculator_test, divide_WhenDivisionByZero_WillCrash)
+{
+    EXPECT_DEATH(calculator::divide(1, 0), "");
 }
