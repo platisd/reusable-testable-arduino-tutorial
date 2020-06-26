@@ -8,7 +8,7 @@ namespace
 const auto kPlainText = "text/plain";
 const auto kSuccess   = 200;
 const auto kError     = 404;
-const auto kLightsPin = 15;
+const auto kLightsPin = 2;
 
 bool areEqual(const std::vector<char>& v, const char* c)
 {

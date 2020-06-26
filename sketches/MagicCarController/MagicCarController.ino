@@ -5,7 +5,7 @@
 
 const auto ssid      = "yourSSID";
 const auto password  = "yourWifiPassword";
-const auto lightsPin = 15;
+const auto lightsPin = 2;
 
 WebServer server(80);
 
