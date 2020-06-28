@@ -9,37 +9,44 @@ TEST(calculator_test, add_WhenPositiveArguments_WillReturnCorrectSum)
 
 TEST(calculator_test, add_WhenNegativeArguments_WillReturnCorrectSum)
 {
-    // TODO: Write this test
+    const auto expectedResult = 3;
+    EXPECT_EQ(calculator::subtract(-10, -13), expectedResult);
 }
 
 TEST(calculator_test, add_WhenMixedSignArguments_WillReturnCorrectSum)
 {
-    // TODO: Write this test
+    const auto expectedResult = 214;
+    EXPECT_EQ(calculator::subtract(101, -113), expectedResult);
 }
 
 TEST(calculator_test, subtract_WhenPositiveArguments_WillReturnCorrectSum)
 {
-    // TODO: Write this test
+    const auto expectedResult = 745;
+    EXPECT_EQ(calculator::subtract(800, 55), expectedResult);
 }
 
 TEST(calculator_test, subtract_WhenNegativeArguments_WillReturnCorrectSum)
 {
-    // TODO: Write this test
+    const auto expectedResult = -10;
+    EXPECT_EQ(calculator::subtract(-20, -10), expectedResult);
 }
 
 TEST(calculator_test, subtract_WhenMixedSignArguments_WillReturnCorrectSum)
 {
-    // TODO: Write this test
+    const auto expectedResult = -28;
+    EXPECT_EQ(calculator::subtract(-23, 5), expectedResult);
 }
 
 TEST(calculator_test, divide_WhenExactDivision_WillReturnCorrectResult)
 {
-    // TODO: Write this test
+    const auto expectedResult = 5;
+    EXPECT_EQ(calculator::divide(25, 5), expectedResult);
 }
 
 TEST(calculator_test, divide_WhenNotExactDivision_WillReturnCorrectResult)
 {
-    // TODO: Write this test (is the implementation correct though?)
+    const auto expectedResult = -0.5;
+    EXPECT_EQ(calculator::divide(-100, 200), expectedResult);
 }
 
 TEST(calculator_test, divide_WhenDivisionByZero_WillCrash)

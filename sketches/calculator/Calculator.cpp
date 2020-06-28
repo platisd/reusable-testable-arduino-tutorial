@@ -15,6 +15,6 @@ int subtract(int a, int b)
 double divide(int a, int b)
 {
     assert(b != 0);
-    return a / b;
+    return static_cast<double>(a) / static_cast<double>(b);
 }
 } // namespace calculator
