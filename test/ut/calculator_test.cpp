@@ -39,7 +39,7 @@ TEST(calculator_test, divide_WhenExactDivision_WillReturnCorrectResult)
 
 TEST(calculator_test, divide_WhenNotExactDivision_WillReturnCorrectResult)
 {
-    // TODO: Write this test
+    // TODO: Write this test (is the implementation correct though?)
 }
 
 TEST(calculator_test, divide_WhenDivisionByZero_WillCrash)
