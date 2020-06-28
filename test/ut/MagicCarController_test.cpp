@@ -64,7 +64,9 @@ TEST_F(MagicCarControllerTest,
 TEST_F(MagicCarControllerTest,
        registerGyroscopeEndpoint_WhenCalled_WillRegisterEndpoint)
 {
-    // TODO: Write this test
+    EXPECT_CALL(mRestServer, on(StrEq("/gyro"), _));
+
+    mMagicCarController.registerGyroscopeEndpoint();
 }
 
 TEST_F(MagicCarControllerTest, gyroscopeEndpoint_WhenCalled_WillSendHeading)
@@ -84,22 +86,34 @@ TEST_F(MagicCarControllerTest, gyroscopeEndpoint_WhenCalled_WillSendHeading)
 TEST_F(MagicCarControllerTest,
        registerErrorHandler_WhenCalled_WillRegisterErrorHandler)
 {
-    // TODO: Write this test
+    EXPECT_CALL(mRestServer, onNotFound(_));
+
+    mMagicCarController.registerErrorHandler();
 }
 
 TEST_F(MagicCarControllerTest, errorEndpoint_WhenCalled_WillSendError)
 {
-    // TODO: Write this test
+    std::function<void()> callback;
+    EXPECT_CALL(mRestServer, onNotFound(_)).WillOnce(SaveArg<0>(&callback));
+    mMagicCarController.registerErrorHandler();
+
+    EXPECT_CALL(mRestServer, send(kError, _, _));
+    callback();
 }
 
 TEST_F(MagicCarControllerTest, beginServer_WhenCalled_WillBeginServer)
 {
-    // TODO: Write this test
+    EXPECT_CALL(mRestServer, begin());
+
+    mMagicCarController.beginServer();
 }
 
 TEST_F(MagicCarControllerTest, update_WhenCalled_WillUpdateServerAndCar)
 {
-    // TODO: Write this test
+    EXPECT_CALL(mRestServer, handleClient());
+    EXPECT_CALL(mCar, update());
+
+    mMagicCarController.update();
 }
 
 TEST_F(DriveEndpointTest, callback_WhenCalled_WillSendSuccess)
@@ -118,7 +132,11 @@ TEST_F(DriveEndpointTest, callback_WhenNoArguments_WillNotFetchArguments)
 
 TEST_F(DriveEndpointTest, callback_WhenArguments_WillGetAllArguments)
 {
-    // TODO: Write this test
+    const auto numberOfArguments = 8438;
+    EXPECT_CALL(mRestServer, args()).WillOnce(Return(numberOfArguments));
+    EXPECT_CALL(mRestServer, argName(_)).Times(numberOfArguments);
+
+    mCallback();
 }
 
 TEST_F(DriveEndpointTest, callback_WhenSpeedAsArgument_WillSetSpeed)
@@ -134,7 +152,13 @@ TEST_F(DriveEndpointTest, callback_WhenSpeedAsArgument_WillSetSpeed)
 
 TEST_F(DriveEndpointTest, callback_WhenAngleAsArgument_WillSetAngle)
 {
-    // TODO: Write this test
+    const auto angle = 843;
+    EXPECT_CALL(mRestServer, args()).WillOnce(Return(1));
+    EXPECT_CALL(mRestServer, argName(_)).WillOnce(Return(kAngle));
+    EXPECT_CALL(mRestServer, argToInt(_)).WillOnce(Return(angle));
+    EXPECT_CALL(mCar, setAngle(angle));
+
+    mCallback();
 }
 
 TEST_F(DriveEndpointTest,
