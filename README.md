@@ -3,14 +3,14 @@
 How to write testable and reusable C++ for Arduino, following the
 [Inversion of Control principle](https://en.wikipedia.org/wiki/Inversion_of_control).
 
-<a href="https://youtube.com"><img src="https://i.imgur.com/SiFqzzp.png" width="400"></a>
+<a href="https://youtu.be/jCLgqaXS6Gg"><img src="https://i.imgur.com/SiFqzzp.png" width="400"></a>
 
 [Arduino CI]: https://github.com/platisd/reusable-testable-arduino-tutorial/workflows/Arduino%20CI/badge.svg?branch=master
 
 ## What?
 
 This is the repository for the material included in the
-[How to write testable C++ for Arduino](https://www.youtube.com/) video tutorial.
+[How to write testable C++ for Arduino](https://youtu.be/jCLgqaXS6Gg) video tutorial.
 
 The tutorial demonstrates how to design and refactor C++ according to the **Inversion of Control**
 principle (IoC), using Arduino compatible code as an example. To follow along, it is advised you
