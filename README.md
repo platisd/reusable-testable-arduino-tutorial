@@ -3,7 +3,7 @@
 How to write testable and reusable C++ for Arduino, following the
 [Inversion of Control principle](https://en.wikipedia.org/wiki/Inversion_of_control).
 
-<a href="https://youtu.be/jCLgqaXS6Gg"><img src="https://i.imgur.com/SiFqzzp.png" width="400"></a>
+<a href="https://youtu.be/jCLgqaXS6Gg"><img src="https://i.imgur.com/awxkHQV.png" width="500"></a>
 
 [Arduino CI]: https://github.com/platisd/reusable-testable-arduino-tutorial/workflows/Arduino%20CI/badge.svg?branch=master
 
