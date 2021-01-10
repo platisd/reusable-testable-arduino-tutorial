@@ -9,7 +9,7 @@ jobs:
       - name: Clone Repo
         uses: actions/checkout@v2
       - name: Install Arduino CLI
-        uses: arduino/setup-arduino-cli@v1.0.0
+        uses: arduino/setup-arduino-cli@v1.1.1
       - name: Get Python3
         uses: actions/setup-python@v1
         with:
