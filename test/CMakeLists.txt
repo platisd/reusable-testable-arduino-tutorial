@@ -44,8 +44,6 @@ function(configure_test testExecutable)
     add_test(${testName} ${testExecutable} ${GTEST_RUN_FLAGS})
 endfunction(configure_test)
 
-enable_testing()
-
 # ========= Unit test configurations =========
 set(unit_tests ${CMAKE_CURRENT_SOURCE_DIR}/ut)
 set(mocks ${CMAKE_CURRENT_SOURCE_DIR}/mocks)
