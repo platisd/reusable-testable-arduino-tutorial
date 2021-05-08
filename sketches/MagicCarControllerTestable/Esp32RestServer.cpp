@@ -27,17 +27,10 @@ int Esp32RestServer::args()
     return mWebServer.args();
 }
 
-std::vector<char> Esp32RestServer::argName(int index)
+String Esp32RestServer::argName(int index)
 {
-    const auto name = mWebServer.argName(index);
-    std::vector<char> argumentName;
-    for (auto c : name)
-    {
-        argumentName.emplace_back(c);
-    }
-    argumentName.emplace_back('\0'); // Null terminate the string
-
-    return argumentName;
+    String name = mWebServer.argName(index);
+    return name;
 }
 
 int Esp32RestServer::argToInt(int index)

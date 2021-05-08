@@ -15,7 +15,7 @@ public:
                 (override));
     MOCK_METHOD(void, onNotFound, (std::function<void()> callback), (override));
     MOCK_METHOD(int, args, (), (override));
-    MOCK_METHOD(std::vector<char>, argName, (int index), (override));
+    MOCK_METHOD(String, argName, (int index), (override));
     MOCK_METHOD(int, argToInt, (int index), (override));
     MOCK_METHOD(void,
                 send,

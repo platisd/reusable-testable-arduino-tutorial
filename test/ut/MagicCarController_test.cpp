@@ -11,9 +11,9 @@ namespace
 const auto kSuccess   = 200;
 const auto kError     = 404;
 const auto kLightsPin = 2;
-const std::vector<char> kDummyName{'a', 'b', 'c', '\0'};
-const std::vector<char> kSpeed{'s', 'p', 'e', 'e', 'd', '\0'};
-const std::vector<char> kAngle{'a', 'n', 'g', 'l', 'e', '\0'};
+const magic_car::String kDummyName{"abc"};
+const magic_car::String kSpeed{"speed"};
+const magic_car::String kAngle{"angle"};
 } // namespace
 
 namespace magic_car

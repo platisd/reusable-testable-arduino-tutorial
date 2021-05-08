@@ -10,10 +10,6 @@ const auto kSuccess   = 200;
 const auto kError     = 404;
 const auto kLightsPin = 2;
 
-bool areEqual(const std::vector<char>& v, const char* c)
-{
-    return strcmp(v.data(), c) == 0;
-}
 } // namespace
 
 namespace magic_car
@@ -36,7 +32,7 @@ void MagicCarController::registerDriveEndpoint()
         for (auto i = 0; i < arguments; i++)
         {
             const auto command = mRestServer.argName(i);
-            if (areEqual(command, "speed"))
+            if (command == "speed")
             {
                 const auto userSpeed = mRestServer.argToInt(i);
                 mCar.setSpeed(static_cast<float>(userSpeed));
@@ -49,7 +45,7 @@ void MagicCarController::registerDriveEndpoint()
                     mPinController.clearPin(kLightsPin);
                 }
             }
-            else if (areEqual(command, "angle"))
+            else if (command == "angle")
             {
                 mCar.setAngle(mRestServer.argToInt(i));
             }
