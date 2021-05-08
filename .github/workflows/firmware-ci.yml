@@ -28,30 +28,60 @@ jobs:
           arduino-cli compile -b esp32:esp32:esp32doit-devkit-v1 sketches/MagicCarControllerTestable/MagicCarControllerTestable.ino
 
   run-unit-tests:
-    runs-on: ubuntu-18.04
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        compiler:
-          - cc: gcc-9
-            cxx: g++-9
-          - cc: clang-9
-            cxx: clang++-9
+        os: [ubuntu-18.04, windows-latest]
+        compiler: [gnu, clang, msvc]
+
+        exclude:
+        - os: ubuntu-18.04
+          compiler: msvc
+
+        - os: windows-latest
+          compiler: gnu
+        
+        - os: windows-latest
+          compiler: clang
+
+        include:
+        - os: ubuntu-18.04
+          nproc: "-j$(nproc)"
+          mkdir_force: -p
+        
+        - os: windows-latest
+          mkdir_force: -Force
+
+        - compiler: gnu
+          cc: gcc-9
+          cxx: g++-9
+
+        - compiler: clang
+          cc: clang-9
+          cxx: clang++-9
+
+        - compiler: msvc
+          cc: cl
+          cxx: cl
+
+
     env:
-      CC: ${{ matrix.compiler.cc }}
-      CXX: ${{ matrix.compiler.cxx }}
+      CC: ${{ matrix.cc }}
+      CXX: ${{ matrix.cxx }}
       build_dir: build
 
     steps:
       - uses: actions/checkout@v2
       - name: Get dependencies
+        if: runner.os == 'Linux'
         run: |
-          sudo apt-get install -y ${{ matrix.compiler.cc }}
-          sudo apt-get install -y ${{ matrix.compiler.cxx }}
+          sudo apt-get install -y ${{ matrix.cc }}
+          sudo apt-get install -y ${{ matrix.cxx }}
       - name: Create unit test build directory
-        run: mkdir -p ${build_dir}
+        run: mkdir ${{ matrix.mkdir_force }} ${{ env.build_dir }}
       - name: Configure unit tests
-        run: cd ${build_dir} && cmake ..
+        run: cd ${{ env.build_dir }} && cmake ..
       - name: Build unit tests
-        run: cmake --build ${build_dir} -- -j$(nproc)
+        run: cmake --build ${{ env.build_dir }} -- ${{ matrix.nproc }}
       - name: Run unit tests
-        run: cd ${build_dir} && ctest
+        run: cd ${{ env.build_dir }} && ctest
