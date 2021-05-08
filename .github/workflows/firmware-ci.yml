@@ -28,30 +28,48 @@ jobs:
           arduino-cli compile -b esp32:esp32:esp32doit-devkit-v1 sketches/MagicCarControllerTestable/MagicCarControllerTestable.ino
 
   run-unit-tests:
-    runs-on: ubuntu-18.04
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        compiler:
-          - cc: gcc-9
-            cxx: g++-9
-          - cc: clang-9
-            cxx: clang++-9
+        os: [ubuntu-18.04, ubuntu-18.04, windows-latest]
+        include:
+        - os: ubuntu-18.04
+          cc: gcc-9
+          cxx: g++9
+
+        - os: ubuntu-18.04
+          cc: gcc-9
+          cxx: g++-9
+
+        - os: windows-latest
+          cc: cl
+          cxx: cl
+
     env:
-      CC: ${{ matrix.compiler.cc }}
-      CXX: ${{ matrix.compiler.cxx }}
+      CC: ${{ matrix.cc }}
+      CXX: ${{ matrix.cxx }}
       build_dir: build
 
     steps:
       - uses: actions/checkout@v2
       - name: Get dependencies
+        if: runner.os == 'Linux'
         run: |
-          sudo apt-get install -y ${{ matrix.compiler.cc }}
-          sudo apt-get install -y ${{ matrix.compiler.cxx }}
+          sudo apt-get install -y ${{ matrix.cc }}
+          sudo apt-get install -y ${{ matrix.cxx }}
       - name: Create unit test build directory
-        run: mkdir -p ${build_dir}
+        if: runner.os == 'Linux'
+        run: mkdir -p ${{ env.build_dir }}
+      - name: Create unit test build directory
+        if: runner.os == 'Windows'
+        run: mkdir -Force ${{ env.build_dir }}
       - name: Configure unit tests
-        run: cd ${build_dir} && cmake ..
+        run: cd ${{ env.build_dir }} && cmake ..
       - name: Build unit tests
-        run: cmake --build ${build_dir} -- -j$(nproc)
+        if: runner.os == 'Linux'
+        run: cmake --build ${{ env.build_dir }} -- -j$(nproc)
+      - name: Build unit tests
+        if: runner.os == 'Windows'
+        run: cmake --build ${{ env.build_dir }}
       - name: Run unit tests
-        run: cd ${build_dir} && ctest
+        run: cd ${{ env.build_dir }} && ctest
