@@ -62,7 +62,11 @@ void MagicCarController::registerGyroscopeEndpoint()
 {
     mRestServer.on("/gyro", [this]() {
         char heading[4];
+        #if defined(_MSC_VER)
+        sprintf_s(heading, "%d", mCar.getHeading());
+        #else
         sprintf(heading, "%d", mCar.getHeading());
+        #endif
         mRestServer.send(kSuccess, kPlainText, heading);
     });
 }
