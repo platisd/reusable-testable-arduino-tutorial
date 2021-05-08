@@ -29,5 +29,5 @@ add_compile_options(
 set(calculator_dir ${CMAKE_CURRENT_SOURCE_DIR}/sketches/calculator)
 set(magiccar_dir ${CMAKE_CURRENT_SOURCE_DIR}/sketches/MagicCarControllerTestable)
 
-add_subdirectory(test)
 enable_testing()
+add_subdirectory(test)
