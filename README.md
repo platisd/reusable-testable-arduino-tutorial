@@ -45,3 +45,6 @@ The solutions can be found in the [solutions](https://github.com/platisd/reusabl
 
 Do you have a solution that you want to share with us? Then fork this repository, push your solution to it
 and then let me know by opening an issue. I will add a link to your repo in this `README` file.
+
+* [Platform-agnostic strings](https://github.com/PascalGuenther/reusable-testable-arduino-tutorial/tree/solutions)
+by [PascalGuenther](https://github.com/PascalGuenther)
